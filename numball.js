@@ -42,9 +42,9 @@ const hit = function(event) {
     if (check(input)) {
         const log = document.createElement('li')
 
-        if (answer === input) {
+        if (answer.join('') === input) {
             log.innerText = 'Home Run'
-        } else if (tries.length >= 9) {
+        } else if (tries.length > 9) {
             log.innerText = `패배! 정답은 ${answer}`
         } else {
 
