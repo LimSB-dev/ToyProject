@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  {% for article in articles %}
+    <h3><a class="text-black text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></h3>
+    <p>{{ article.count }} 회</p>
+    <hr>
+  {% endfor %}
+{% endblock content %}

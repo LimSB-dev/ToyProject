@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  <form class="row g-3" action="{% url 'articles:create' %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class="btn btn-success" value="Hit">
+  </form>
+  <ul id="logs"></ul>
+  <div class="p-4">
+    
+  </div>
+  <script src="numball.js"></script>
+{% endblock content %}

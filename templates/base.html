@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숫자 야구 게임</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body class="container">
+
+  <!-- Navbar -->
+  <div class="p-5 m-3">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <div class="container-fluid">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse px-5" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active text-white" aria-current="page" href="{% url 'articles:index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              {% if request.user.is_authenticated %}
+                <a class="nav-link active text-white" href="{% url 'articles:create' %}">Play</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+
+
+        <ul class="nav nav-pills px-5">
+          <li class="nav-item dropdown">
+            {% if request.user.is_authenticated %}
+              <a class="text-white nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hello, {{ user }}</a>
+              <ul class="dropdown-menu">
+                <li><a class="btn btn-link active text-black text-decoration-none" href="{% url 'accounts:update' %}">정보수정</a></li>
+                <li>
+                  <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn btn-link active text-black text-decoration-none" type="submit" value="Logout">
+                  </form>
+                </li>
+                <hr>
+                <li>
+                  <form action="{% url 'accounts:delete' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn btn-link active text-danger text-decoration-none" type="submit" value="Delete Account">
+                  </form>
+                </li>
+              </ul>
+            {% else %}
+              <li class="nav-item">
+                <a class="btn btn-link active text-white text-decoration-none" href="{% url 'accounts:signin' %}">Sign in</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-link active text-white text-decoration-none" href="{% url 'accounts:signup' %}">Sign up</a>
+              </li>        
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+  </div>
+  
+  {% block content %}
+  
+  {% endblock content %}
+  
+  <!-- FOOTER -->
+  <footer class="p-5">
+    <div class="fw-bold d-flex fixed-bottom justify-content-center align-items-center"
+      style="height: 60px; background-color: aliceblue; opacity: 0.8;">
+      TOY PJT by LIM
+    </div>
+  </footer>
+
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
